@@ -1,12 +1,15 @@
+
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js"; 
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
     const width = 960;
     const height = 540;
-
+    let canvasElement = document.getElementById('myCanvas')
     // レンダラーを作成
     const renderer = new THREE.WebGLRenderer({
-        canvas: document.querySelector('#myCanvas')
+        canvas: canvasElement
     });
     renderer.setSize(width, height);
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -18,7 +21,12 @@ function init() {
     const camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
     // カメラの初期座標を設定（X座標:0, Y座標:0, Z座標:0）
     camera.position.set(0, 0, 1000);
+    // カメラコントローラーを作成
+    const controls = new OrbitControls(camera, canvasElement);
 
+    // 滑らかにカメラコントローラーを制御する
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.2;
     // 箱を作成
     const geometry = new THREE.BoxGeometry(500, 500, 500);
     const material = new THREE.MeshStandardMaterial({ color: 0x0000FF });
@@ -36,12 +44,14 @@ function init() {
     tick();
 
     function tick() {
+        // カメラコントローラーを更新
+        controls.update();
         requestAnimationFrame(tick);
 
         // 箱を回転させる
-        box.rotation.x += 0.01;
-        box.rotation.y += 0.01;
-        box.rotation.z += 0.01;
+        //box.rotation.x += 0.01;
+        //box.rotation.y += 0.01;
+        //box.rotation.z += 0.01;
 
         // レンダリング
         renderer.render(scene, camera);

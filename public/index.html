@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://unpkg.com/three@0.146.0/build/three.min.js"></script>
-    <script src="main.js"></script>
+    <title>花火</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.152.2/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.152.2/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="main.js">
+        import * as THREE from "three";
+        import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+    // …
+    </script>
+    <script type = "text/javascript" src="main.js"></script>
 </head>
 <body>
     <canvas id="myCanvas" width="1200" height="645"></canvas>
